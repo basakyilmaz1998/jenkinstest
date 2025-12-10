@@ -2,20 +2,22 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+        stage('Install dependencies') {
             steps {
-                echo "Pulling code from GitHub..."
+                sh """
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip install -r requirements.txt
+                """
             }
         }
-        stage('Build') {
+
+        stage('Run Tests') {
             steps {
-                echo "Building project..."
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'chmod +x test.py'
-                sh './test.py'
+                sh """
+                    . venv/bin/activate
+                    pytest -v
+                """
             }
         }
     }
