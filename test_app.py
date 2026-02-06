@@ -2,7 +2,7 @@ import time
 import requests
 
 def test_url_access():
-    url = "https://example.com"
+    url = "https://insiderone.com/"
 
     r1 = requests.get(url)
     time.sleep(2)
