@@ -1,12 +1,8 @@
-import time
-import requests
+from playwright.sync_api import Page
 
-def test_url_access():
-    url = "https://insiderone.com/"
+def test_homepage(page: Page):
+    page.goto("https://insiderone.com")
 
-    r1 = requests.get(url)
-    time.sleep(2)
-    r2 = requests.get(url)
+    page.screenshot(path="test_reports/homepage.png")
 
-    assert r1.status_code == 200
-    assert r2.status_code == 200
+    assert "Insider" in page.title()
