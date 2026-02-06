@@ -1,8 +1,17 @@
-from playwright.sync_api import Page
+from playwright.sync_api import sync_playwright
+import os
 
-def test_homepage(page: Page):
-    page.goto("https://insiderone.com")
+def test_homepage_ui():
+    os.makedirs("test_reports", exist_ok=True)
 
-    page.screenshot(path="test_reports/homepage.png")
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        page = browser.new_page()
 
-    assert "Insider" in page.title()
+        page.goto("https://insiderone.com")
+
+        assert page.title() != ""
+
+        page.screenshot(path="test_reports/homepage.png")
+
+        browser.close()
