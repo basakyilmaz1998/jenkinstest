@@ -1,4 +1,6 @@
 #!/bin/bash
 
-echo "Running simple test..."
-echo "Test OK!"
+echo "Running tests..."
+
+pytest tests \
+  --junitxml=test_reports/report.xml
