@@ -20,6 +20,7 @@ pipeline {
 
                     pip install --upgrade pip
                     pip install -r requirements.txt
+                    playwright install
                 '''
             }
         }
@@ -28,14 +29,7 @@ pipeline {
             steps {
                 sh '''
                     . venv/bin/activate
-
-                    # Browser kurulumu (UI test için)
-                    playwright install
-
-                    # Report klasörü
                     mkdir -p test_reports
-
-                    # Testleri çalıştır
                     bash test.sh
                 '''
             }
