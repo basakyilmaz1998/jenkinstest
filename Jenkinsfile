@@ -15,12 +15,14 @@ pipeline {
         }
 
         stage('Run Tests') {
-            steps {
-                sh '''
-                    . venv/bin/activate
-                    pytest -v
-                '''
-            }
-        }
+    steps {
+        sh '''
+            . venv/bin/activate
+            playwright install
+            mkdir -p test_reports
+            bash test.sh
+        '''
+    }
+}
     }
 }
