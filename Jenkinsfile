@@ -34,9 +34,8 @@ pipeline {
                     . venv/bin/activate
 
                     chmod +x test.sh
-                    mkdir -p test_reports
 
-                    echo "=== test.sh çalıştırılıyor ==="
+                    echo "=== UI testleri başlıyor ==="
                     ./test.sh
 
                     echo "=== test_reports içeriği ==="
