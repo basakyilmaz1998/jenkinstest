@@ -3,6 +3,14 @@ pipeline {
 
     stages {
 
+        stage('Clean workspace') {
+            steps {
+                sh '''
+                    rm -rf test_reports
+                '''
+            }
+        }
+
         stage('Checkout') {
             steps {
                 checkout scm
