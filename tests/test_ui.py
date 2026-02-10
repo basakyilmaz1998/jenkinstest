@@ -5,12 +5,19 @@ def test_homepage_ui():
     os.makedirs("test_reports", exist_ok=True)
 
     with sync_playwright() as p:
-        browser = p.chromium.launch()
-        page = browser.new_page()
+        browser = p.chromium.launch(headless=True)
 
-        page.goto("https://insiderone.com")
+        context = browser.new_context()
+        page = context.new_page()
 
-        assert page.title() != ""
+        page.goto("https://example.com")
+
+        assert page.title() == "Example Domain"
+
+
+        heading = page.locator("h1")
+        assert heading.text_content() == "Example Domain"
+
 
         page.screenshot(path="test_reports/homepage.png")
 
