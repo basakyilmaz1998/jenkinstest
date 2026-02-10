@@ -30,13 +30,17 @@ pipeline {
         stage('Run Tests') {
             steps {
                 sh '''
+                    set -e
                     . venv/bin/activate
 
-                    chmod +x test.sh || true
-
+                    chmod +x test.sh
                     mkdir -p test_reports
 
-                    bash ./test.sh
+                    echo "=== test.sh çalıştırılıyor ==="
+                    ./test.sh
+
+                    echo "=== test_reports içeriği ==="
+                    ls -la test_reports
                 '''
             }
         }
@@ -45,7 +49,7 @@ pipeline {
     post {
         always {
             archiveArtifacts artifacts: 'test_reports/**/*', allowEmptyArchive: true
-            junit 'test_reports/report.xml'
+            junit allowEmptyResults: true, testResults: 'test_reports/report.xml'
         }
     }
 }
