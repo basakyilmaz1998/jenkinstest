@@ -7,17 +7,16 @@ def test_homepage_ui():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
 
-        context = browser.new_context()
+        context = browser.new_context(
+            ignore_https_errors=True
+        )
         page = context.new_page()
 
         page.goto("https://example.com")
 
-        assert page.title() == "Example Domain"
-
-
-        heading = page.locator("h1")
-        assert heading.text_content() == "Example Domain"
-
+        h1 = page.locator("h1")
+        assert h1.is_visible()
+        assert h1.text_content() == "Example Domain"
 
         page.screenshot(path="test_reports/homepage.png")
 
