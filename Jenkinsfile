@@ -22,7 +22,6 @@ pipeline {
                     pip install -r requirements.txt
 
                     playwright install-deps
-
                     playwright install
                 '''
             }
@@ -32,8 +31,12 @@ pipeline {
             steps {
                 sh '''
                     . venv/bin/activate
+
+                    chmod +x test.sh || true
+
                     mkdir -p test_reports
-                    bash test.sh
+
+                    bash ./test.sh
                 '''
             }
         }
