@@ -51,6 +51,15 @@ pipeline {
                 '''
             }
         }
+
+        stage('Insert test results to DB') {
+            steps {
+                sh '''
+                    . venv/bin/activate
+                    python insert_test_results.py
+                '''
+            }
+        }
     }
 
     post {
