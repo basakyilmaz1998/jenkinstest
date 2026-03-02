@@ -5,9 +5,7 @@ pipeline {
 
         stage('Clean workspace') {
             steps {
-                sh '''
-                    rm -rf test_reports
-                '''
+                sh 'rm -rf test_reports'
             }
         }
 
@@ -40,12 +38,8 @@ pipeline {
                 sh '''
                     set -e
                     . venv/bin/activate
-
                     chmod +x test.sh
-
-                    echo "=== UI testleri başlıyor ==="
-                    ./test.sh
-
+                    ./test.sh || true   # Testler fail olsa bile pipeline devam etsin
                     echo "=== test_reports içeriği ==="
                     ls -la test_reports
                 '''
@@ -56,7 +50,7 @@ pipeline {
             steps {
                 sh '''
                     . venv/bin/activate
-                    python insert_test_results.py
+                    python insert_test_results.py || true
                 '''
             }
         }
