@@ -3,3 +3,4 @@ pytest-html
 playwright
 psycopg2-binary
 junitparser
+pytest-playwright
